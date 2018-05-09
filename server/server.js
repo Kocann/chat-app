@@ -23,6 +23,16 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user leaved')
   });
+
+  socket.emit('newMessage', {
+    from: 'server',
+    text: 'trollo',
+    createdAt: '1,2,3'
+  })
+
+  socket.on('createMessage', (newMessage) => {
+    console.log(newMessage);
+  });
 })
 
 server.listen(port, () => {

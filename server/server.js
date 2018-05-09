@@ -30,9 +30,39 @@ io.on('connection', (socket) => {
     createdAt: '1,2,3'
   })
 
-  socket.on('createMessage', (newMessage) => {
-    console.log(newMessage);
+  socket.on('createMessage', (message) => {
+    console.log(message);
+
+    // io.emit('newMessage', {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: new Date().getDate()
+    // })
+
+ 
+
+    //broadcasting event to everyone but sender
+    // socket.broadcast.emit('newMessage', {
+    //     from: message.from,
+    //     text: message.text,
+    //     createdAt: new Date().getDate()
+    //   })
+
   });
+
+  socket.emit('newMessage', {
+    from: 'admin',
+    text: 'welcome',
+    createdAt: new Date().getDate()
+  })
+
+  socket.broadcast.emit('newMessage', {
+    from: 'new user',
+    text: 'new user',
+    createdAt: new Date().getTime()
+  })
+
+
 })
 
 server.listen(port, () => {

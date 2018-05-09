@@ -3,6 +3,8 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message');
+
 const publicPath = path.join(__dirname, './../public');
 
 const port = process.env.PORT || 3000;
@@ -24,43 +26,15 @@ io.on('connection', (socket) => {
     console.log('user leaved')
   });
 
-  socket.emit('newMessage', {
-    from: 'server',
-    text: 'trollo',
-    createdAt: '1,2,3'
-  })
+  socket.emit('newMessage', generateMessage('server', 'trollo'))
 
   socket.on('createMessage', (message) => {
     console.log(message);
-
-    // io.emit('newMessage', {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getDate()
-    // })
-
- 
-
-    //broadcasting event to everyone but sender
-    // socket.broadcast.emit('newMessage', {
-    //     from: message.from,
-    //     text: message.text,
-    //     createdAt: new Date().getDate()
-    //   })
-
   });
 
-  socket.emit('newMessage', {
-    from: 'admin',
-    text: 'welcome',
-    createdAt: new Date().getDate()
-  })
+  socket.emit('newMessage', generateMessage('admnin', 'welcome'))
 
-  socket.broadcast.emit('newMessage', {
-    from: 'new user',
-    text: 'new user',
-    createdAt: new Date().getTime()
-  })
+  socket.broadcast.emit('newMessage', generateMessage('new user', 'new user'))
 
 
 })

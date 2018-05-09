@@ -26,15 +26,18 @@ io.on('connection', (socket) => {
     console.log('user leaved')
   });
 
-  socket.emit('newMessage', generateMessage('server', 'trollo'))
+  // socket.emit('newMessage', generateMessage('server', 'trollo'))
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log(message);
+    // emitting to everyone
+    io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('this is from the server');
   });
 
   socket.emit('newMessage', generateMessage('admnin', 'welcome'))
 
-  socket.broadcast.emit('newMessage', generateMessage('new user', 'new user'))
+  // socket.broadcast.emit('newMessage', generateMessage('new user', 'new user'))
 
 
 })

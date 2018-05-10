@@ -17,13 +17,17 @@
   <button id="geo" type="button">Send location</button>
 
   <script id="messageTmpl" type="text/template">
-    <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
-    <div style="padding-left: 20px; font-size: 16px;">{{text}}</div>
+    <div>
+      <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
+      <div style="padding-left: 20px; font-size: 16px;">{{text}}</div>
+    </div>
   </script>
 
   <script id="locationTmpl" type="text/template">
-    <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
-    <a target="_blank" href="{{url}}" style="padding-left: 20px; font-size: 16px;">I am here!</a>
+    <div>
+      <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
+      <a target="_blank" href="{{url}}" style="padding-left: 20px; font-size: 16px;">I am here!</a>
+    </div>
   </script>
 
   <script src="/socket.io/socket.io.js"></script>

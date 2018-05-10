@@ -1,5 +1,21 @@
 let socket = io();
 
+function scrollToBottom() {
+  let chat = $('#chat'); //message container
+  let newMessage = chat.children('div:last-child');
+  let clientHeight = chat.innerHeight();
+  let scrollTop = chat.prop('scrollTop');
+  let scrollHeight = chat.prop('scrollHeight');
+  let newMessageHeight = newMessage.innerHeight();
+  let lastMessageHeight = newMessage.prev().innerHeight();
+
+  if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    $(document).scrollTop(clientHeight);
+    console.log('scrollTop', scrollTop)
+    console.log('scrollHeight', scrollHeight)
+  }
+}
+
 socket.on('connect', () => {
   console.log('connected to server')
 })
@@ -22,6 +38,7 @@ socket.on('newMessage', (message) => {
     createdAt: formatedTime
   });
   $('#chat').append(html);
+  scrollToBottom();
 })
 
 socket.on('newLocationMessage', (message) => {
@@ -33,6 +50,7 @@ socket.on('newLocationMessage', (message) => {
     createdAt: formatedTime
   });
   $('#chat').append(html);
+  scrollToBottom();
 })
 
 // socket.emit('createMessage', {

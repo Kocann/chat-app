@@ -15,12 +15,24 @@
     <button type="submit">Submit message</button>
   </form>
   <button id="geo" type="button">Send location</button>
+
+  <script id="messageTmpl" type="text/template">
+    <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
+    <div style="padding-left: 20px; font-size: 16px;">{{text}}</div>
+  </script>
+
+  <script id="locationTmpl" type="text/template">
+    <div style="color: green; font-size: 12px;"><span style="color: #ccc">{{createdAt}}</span> {{from}}:</div>
+    <a target="_blank" href="{{url}}" style="padding-left: 20px; font-size: 16px;">I am here!</a>
+  </script>
+
   <script src="/socket.io/socket.io.js"></script>
   <script
   src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
   <script src="./js/index.js"></script>
 </body>
 </html>

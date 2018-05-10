@@ -10,21 +10,29 @@ socket.on('disconnect', () => {
 
 socket.on('newMessage', (message) => {
   let formatedTime = moment(message.createdAt).format('kk:mm:ss')
-  let messageLi = $('<li></li>');
-  messageLi.text(`${message.from} at ${formatedTime}: ${message.text}`)
+  // let messageLi = $('<li></li>');
+  // messageLi.text(`${message.from} at ${formatedTime}: ${message.text}`)
 
-  $('#chat').append(messageLi);
+  // $('#chat').append(messageLi);
+  
+  let tmp = $('#messageTmpl').html();
+  let html = Mustache.render(tmp, {
+    text: message.text,
+    from: message.from,
+    createdAt: formatedTime
+  });
+  $('#chat').append(html);
 })
 
 socket.on('newLocationMessage', (message) => {
   let formatedTime = moment(message.createdAt).format('kk:mm:ss')
-  let li = $('<li></li>');
-  let a = $('<a target="_blank">my current location at '+ formatedTime +'</a>');
-  li.text(`${message.from}: `);
-  a.attr('href', message.url);
-
-  li.append(a);
-  $('#chat').append(li);
+  let tmp = $('#locationTmpl').html();
+  let html = Mustache.render(tmp, {
+    url: message.url,
+    from: message.from,
+    createdAt: formatedTime
+  });
+  $('#chat').append(html);
 })
 
 // socket.emit('createMessage', {

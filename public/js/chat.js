@@ -11,17 +11,29 @@ function scrollToBottom() {
 
   if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
     $(document).scrollTop(clientHeight);
-    console.log('scrollTop', scrollTop)
-    console.log('scrollHeight', scrollHeight)
   }
 }
 
 socket.on('connect', () => {
-  console.log('connected to server')
+  console.log('connected to server');
+  let params = deparam(window.location.search);
+  console.log(params)
+  socket.emit('join', params, (err) => {
+    if (err) {
+      alert(err);
+      window.location.href = '/';
+    } else {
+      console.log('no errors')
+    }
+  })
 })
 
 socket.on('disconnect', () => {
   console.log('disconnected from server')
+})
+
+socket.on('updateUsersList', (users) => {
+  console.log('users', users);
 })
 
 socket.on('newMessage', (message) => {

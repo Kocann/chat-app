@@ -7,7 +7,7 @@ describe('generateMessage', () => {
 
     expect(resultObject.from).toBe('Test Owner');
     expect(resultObject.text).toBe('Test text');
-    expect(resultObject.createdAt).toBeGreaterThan(0);
+    expect(resultObject.createdAt).toBeDefined();
   })
 })
 

@@ -9,15 +9,17 @@ socket.on('disconnect', () => {
 })
 
 socket.on('newMessage', (message) => {
+  let formatedTime = moment(message.createdAt).format('kk:mm:ss')
   let messageLi = $('<li></li>');
-  messageLi.text(`${message.from}: ${message.text}`)
+  messageLi.text(`${message.from} at ${formatedTime}: ${message.text}`)
 
   $('#chat').append(messageLi);
 })
 
 socket.on('newLocationMessage', (message) => {
+  let formatedTime = moment(message.createdAt).format('kk:mm:ss')
   let li = $('<li></li>');
-  let a = $('<a target="_blank">my current location</a>');
+  let a = $('<a target="_blank">my current location at '+ formatedTime +'</a>');
   li.text(`${message.from}: `);
   a.attr('href', message.url);
 
